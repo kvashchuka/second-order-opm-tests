@@ -1,0 +1,298 @@
+--------------------------
+-- Just grid from NORNE --
+--------------------------
+RUNSPEC
+
+DIMENS
+46 112 22   /
+
+EQLDIMS
+/
+
+TABDIMS
+/
+
+OIL
+WATER
+GAS
+
+METRIC
+
+
+START
+ 06  'NOV' 1997 /
+
+WELLDIMS
+ 130  36  15  84 /
+
+UNIFIN
+UNIFOUT
+
+
+---------------------------------------------------------
+--
+--	Input of grid geometry
+--
+---------------------------------------------------------
+GRID
+
+NEWTRAN
+
+-- Ask for an EGRID file; no .GRID output.
+GRIDFILE
+  0  1 /
+
+-- optional for postprocessing of GRID
+MAPAXES
+ 0.  100.  0.  0.  100.  0.  /
+
+GRIDUNIT
+METRES  /
+
+-- requests output of INIT file
+INIT
+
+MESSAGES
+ 8*10000  20000 10000 1000 1* /
+
+PINCH
+ 0.001 GAP  1* TOPBOT TOP/
+
+NOECHO
+
+--------------------------------------------------------
+--
+--  	Grid and faults
+--
+--------------------------------------------------------
+
+-- Simulation grid, with slooping faults:
+-- file in UTM coordinate system, for importing to DecisionSpace
+INCLUDE
+ '../INCLUDE/GRID/IRAP_1005.GRDECL' /
+
+--
+INCLUDE
+ '../INCLUDE/GRID/ACTNUM_0704.prop' /
+
+-- Faults
+--INCLUDE
+-- '../INCLUDE/FAULT/FAULT_JUN_05.INC' /
+
+-- Alteration of transmiscibility by use of the 'MULTFLT' keyword
+--INCLUDE
+-- '../INCLUDE/FAULT/FAULTMULT_AUG-2006.INC' /
+
+--------------------------------------------------------
+--
+--  	Input of grid parametres
+--
+--------------------------------------------------------
+
+--
+PORO
+113344*0.25
+/
+
+PERMX
+113344*1000
+/
+
+PERMY
+113344*1000
+/
+
+PERMZ
+113344*150
+/
+
+
+PROPS
+--------------------------------------------------------------------------------
+--
+--    Input of fluid properties and relative permeability
+--
+---------------------------------------------------------
+
+NOECHO
+
+INCLUDE
+'../INCLUDE/PVT/PVT-TWO-PHASE.INC' /
+
+
+-- relative perm.
+INCLUDE
+'../INCLUDE/RELPERM/SCAL_NORNE_LINEAR.INC' /
+
+--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+
+SOLUTION
+
+RPTRST
+BASIC=2 KRO KRW /
+
+RPTSOL
+
+FIP=3  SWAT /
+
+---------------------------------------------------------------------------------
+-- equilibrium data: do not include this file in case of RESTART
+
+EQUIL
+-- Datum    P     woc     Pc   goc    Pc  Rsvd  Rvvd
+2582.0  268.56  4000.0   0.0 0.0  0.0   1   1   0 /   C+D:	Garn
+--2500.0  263.41  4000.5   0.0 0.0  0.0   2   2   0 /   G:	Garn
+--2582.0  269.46  4000.0   0.0 0.0  0.0   3   3   0 /   E:	Garn
+--2200.0  236.92  4000.0   0.0 0.0  0.0   4   4   0 /   G:	Ile-Tilje
+--2585.0  268.77  4000.3   0.0 0.0  0.0   5   5   0 /   C+D+E:	Ile-Tilje
+
+RSVD
+2500  0.0
+3000  0.0/
+
+RVVD
+2500  0.0
+3000  0.0/
+
+THPRES
+  1 2 0.588031 /
+  2 1 0.588031 /
+  1 3 0.787619 /
+  3 1 0.787619 /
+  1 4 7.00083  /
+  4 1 7.00083  /
+/
+
+BC
+6 29 11 11 1 22 RATE Y- WATER -200 /
+/
+
+
+-------------------------------------------------------------------------------
+
+
+SUMMARY
+
+WBHP
+  'PROD1'
+  'PROD2'
+  'PROD3'
+  'INJ01'
+/
+WGIR
+  'PROD1'
+  'PROD2'
+  'PROD3'
+  'INJ01'
+/
+WGIT
+  'PROD1'
+  'PROD2'
+  'PROD3'
+  'INJ01'
+/
+WGPR
+  'PROD1'
+  'PROD2'
+  'PROD3'
+  'INJ01'
+/
+WGPT
+  'PROD1'
+  'PROD2'
+  'PROD3'
+  'INJ01'
+/
+WOIR
+  'PROD1'
+  'PROD2'
+  'PROD3'
+  'INJ01'
+/
+WOIT
+  'PROD1'
+  'PROD2'
+  'PROD3'
+  'INJ01'
+/
+WOPR
+  'PROD1'
+  'PROD2'
+  'PROD3'
+  'INJ01'
+/
+WOPT
+  'PROD1'
+  'PROD2'
+  'PROD3'
+  'INJ01'
+/
+WWIR
+  'PROD1'
+  'PROD2'
+  'PROD3'
+  'INJ01'
+/
+WWIT
+  'PROD1'
+  'PROD2'
+  'PROD3'
+  'INJ01'
+/
+WWPR
+  'PROD1'
+  'PROD2'
+  'PROD3'
+  'INJ01'
+/
+WWPT
+  'PROD1'
+  'PROD2'
+  'PROD3'
+  'INJ01'
+/
+
+NEWTON
+MLINEARS
+
+--
+INCLUDE
+ '../INCLUDE/SUMMARY/summary_no_wells.data' /
+--
+INCLUDE
+ '../INCLUDE/SUMMARY/wpave.inc' /
+--------------------------------------------------------------------------------
+
+
+SCHEDULE
+
+WELSPECS
+-- Item #: 1 2	3	4	5	 6
+	'PROD1'	'G1'	25	54	1*	'OIL' /
+	'PROD2'	'G1'	14	57	1*	'OIL' /
+/
+
+COMPDAT
+-- Item #: 1	2	3	4	5	6	7	8	9
+	'PROD1'	25	54	1	20	'OPEN'	1*	1*	1*	1*/
+	'PROD2'	14	57	1	20	'OPEN'	1*	1*	1*	1*/
+/
+
+WCONPROD
+-- Item #:1	2      3    9
+	'PROD1' 'OPEN' 'BHP'  1*	1*	1*  1*  1*  270 /
+	'PROD2' 'OPEN' 'BHP'  1*	1*	1*  1*  1*  270 /
+/
+
+
+
+DRSDT
+ 0  /
+
+NOECHO
+
+TSTEP
+300*30 / -- approx 50-60 years
+
+END
