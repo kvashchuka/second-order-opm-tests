@@ -11,7 +11,7 @@ done
 
 for repo in common material grid models simulators
 do
-    git clone -c http.sslVerify=false -b thesis-build git@github.com:kvashchuka/opm-$repo.git
+    git clone -c http.sslVerify=false -b thesis-build https://github.com/kvashchuka/opm-$repo.git
 done
 
 CURRENT_DIRECTORY="$PWD"
