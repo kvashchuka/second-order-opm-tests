@@ -25,4 +25,8 @@ Please use the following citation when referring to the research presented in th
 }
 ```
 
-Thank you for visiting this repository. We hope you find it useful.
+## Acknowledgments
+Many thanks goes to Alexey (GitHub handle: @alex11818) for refining the original Norne field model and generously providing us with the `refined_norne` model that you can find in this repository.
+
+##
+Thank you for visiting this repository. I hope you find it useful.
